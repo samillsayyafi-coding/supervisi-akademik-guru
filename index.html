@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervisi Akademik Guru - By Syamil</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+header {
+    background: #1e40af;
+    color: white;
+    padding: 22px 35px;
+}
+
+header h2 {
+    font-size: 23px;
+}
+
+header p {
+    font-size: 13px;
+    margin-top: 5px;
+    opacity: .85;
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+}
+
+.sidebar {
+    width: 230px;
+    background: white;
+    padding: 25px 15px;
+    box-shadow: 2px 0 8px #00000008;
+}
+
+.sidebar h3 {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 10px 12px 15px;
+}
+
+.sidebar button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    padding: 13px;
+    margin-bottom: 7px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #475569;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.page-title h2 {
+    font-size: 24px;
+}
+
+.page-title p {
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #00000008;
+}
+
+.card p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.card h2 {
+    font-size: 28px;
+    margin-top: 12px;
+    color: #1e40af;
+}
+
+.panel {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 8px #00000008;
+}
+
+.panel h3 {
+    margin-bottom: 18px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th, td {
+    padding: 13px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    margin-top: 7px;
+    margin-bottom: 16px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #2563eb;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn {
+    border: none;
+    padding: 11px 17px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.primary {
+    background: #2563eb;
+    color: white;
+}
+
+.danger {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.secondary {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.btn:hover {
+    opacity: .85;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.criteria {
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.criteria p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.criteria select {
+    margin-bottom: 0;
+}
+
+.badge {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.result {
+    background: #eff6ff;
+    padding: 18px;
+    border-radius: 9px;
+    margin: 15px 0;
+}
+
+.result h2 {
+    color: #1d4ed8;
+}
+
+@media(max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .container {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar button {
+        min-width: max-content;
+        margin: 0 4px;
+    }
+
+    main {
+        padding: 17px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .panel {
+        overflow-x: auto;
+    }
+}
+
+@media print {
+    header, .sidebar, .no-print {
+        display: none !important;
+    }
+
+    .container {
+        display: block;
+    }
+
+    main {
+        padding: 0;
+    }
+
+    .page {
+        display: none !important;
+    }
+
+    #riwayat {
+        display: block !important;
+    }
+
+    body {
+        background: white;
+    }
+
+    .panel {
+        box-shadow: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>SUPERVISI AKADEMIK GURU by SYAMIL</h2>
+    <p>Sistem Informasi Penilaian dan Evaluasi Kinerja Guru</p>
+</header>
+
+<div class="container">
+
+    <aside class="sidebar no-print">
+        <h3>MENU UTAMA</h3>
+        <button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
+        <button onclick="showPage('guru',this)">👨‍🏫 Data Guru</button>
+        <button onclick="showPage('penilaian',this)">📝 Penilaian</button>
+        <button onclick="showPage('riwayat',this)">📊 Hasil Supervisi</button>
+    </aside>
+
+    <main>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page active">
+
+            <div class="page-title">
+                <h2>Dashboard</h2>
+                <p>Selamat datang di Sistem Supervisi Akademik Guru.</p>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <p>Total Guru</p>
+                    <h2 id="totalGuru">0</h2>
+                </div>
+
+                <div class="card">
+                    <p>Total Supervisi</p>
+                    <h2 id="totalSupervisi">0</h2>
+                </div>
+
+                <div class="card">
+                    <p>Nilai Rata-rata</p>
+                    <h2 id="rataRata">0</h2>
+                </div>
+
+                <div class="card">
+                    <p>Predikat Sangat Baik</p>
+                    <h2 id="sangatBaik">0</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Informasi Sistem</h3>
+                <p style="color:#64748b;font-size:14px;line-height:1.8">
+                    Website ini digunakan untuk membantu proses supervisi
+                    akademik guru, mulai dari pengelolaan data guru,
+                    penilaian kegiatan pembelajaran, hingga penyimpanan
+                    hasil supervisi secara digital.
+                </p>
+            </div>
+
+            <div class="panel">
+                <h3>Supervisi Terbaru</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Guru</th>
+                            <th>Tanggal</th>
+                            <th>Nilai</th>
+                            <th>Predikat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboardTable"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- DATA GURU -->
+        <section id="guru" class="page">
+
+            <div class="page-title">
+                <h2>Data Guru</h2>
+                <p>Kelola data guru yang akan mengikuti supervisi.</p>
+            </div>
+
+            <div class="panel">
+                <h3>Tambah Data Guru</h3>
+
+                <form id="guruForm">
+
+                    <div class="form-grid">
+                        <div>
+                            <label>Nama Guru</label>
+                            <input id="namaGuru" required placeholder="Masukkan nama guru">
+                        </div>
+
+                        <div>
+                            <label>NIP</label>
+                            <input id="nipGuru" placeholder="Masukkan NIP">
+                        </div>
+
+                        <div>
+                            <label>Mata Pelajaran</label>
+                            <input id="mapelGuru" required placeholder="Contoh: Matematika">
+                        </div>
+
+                        <div>
+                            <label>Kelas</label>
+                            <input id="kelasGuru" placeholder="Contoh: X, XI, XII">
+                        </div>
+                    </div>
+
+                    <button class="btn primary" type="submit">+ Simpan Guru</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Daftar Guru</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIP</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Kelas</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guruTable"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- PENILAIAN -->
+        <section id="penilaian" class="page">
+
+            <div class="page-title">
+                <h2>Penilaian Supervisi</h2>
+                <p>Form penilaian kegiatan pembelajaran guru.</p>
+            </div>
+
+            <div class="panel">
+                <h3>Identitas Supervisi</h3>
+
+                <form id="supervisiForm">
+
+                    <label>Nama Guru</label>
+                    <select id="pilihGuru" required>
+                        <option value="">-- Pilih Guru --</option>
+                    </select>
+
+                    <div class="form-grid">
+                        <div>
+                            <label>Nama Supervisor</label>
+                            <input id="namaSupervisor" required placeholder="Nama kepala sekolah/supervisor">
+                        </div>
+
+                        <div>
+                            <label>Tanggal Supervisi</label>
+                            <input type="date" id="tanggalSupervisi" required>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:20px 0">Instrumen Penilaian</h3>
+
+                    <p style="font-size:13px;color:#64748b;margin-bottom:15px">
+                        Berikan skor pada setiap indikator dengan skala 1–4.
+                        1 = Kurang, 2 = Cukup, 3 = Baik, 4 = Sangat Baik.
+                    </p>
+
+                    <div id="kriteriaList"></div>
+
+                    <div class="result">
+                        <p>Nilai Akhir</p>
+                        <h2 id="nilaiAkhir">0</h2>
+                        <p id="predikat">Belum dinilai</p>
+                    </div>
+
+                    <label>Catatan Supervisor</label>
+                    <textarea id="catatan" rows="4" placeholder="Masukkan catatan hasil supervisi..."></textarea>
+
+                    <button type="submit" class="btn primary">Simpan Hasil Supervisi</button>
+
+                </form>
+            </div>
+
+        </section>
+
+        <!-- RIWAYAT -->
+        <section id="riwayat" class="page">
+
+            <div class="page-title">
+                <h2>Hasil Supervisi</h2>
+                <p>Daftar hasil penilaian supervisi akademik guru.</p>
+            </div>
+
+            <div class="panel">
+                <h3>Riwayat Penilaian</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Guru</th>
+                            <th>Supervisor</th>
+                            <th>Tanggal</th>
+                            <th>Nilai</th>
+                            <th>Predikat</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="riwayatTable"></tbody>
+                </table>
+
+                <br>
+                <button class="btn primary no-print" onclick="window.print()">🖨 Cetak Hasil</button>
+            </div>
+
+            <div class="panel" id="detailPanel" style="display:none">
+                <h3>Detail Hasil Supervisi</h3>
+                <div id="detailHasil"></div>
+                <button class="btn secondary no-print" onclick="document.getElementById('detailPanel').style.display='none'">Tutup Detail</button>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<script>
+
+// PENYIMPANAN DATA
+let guru = JSON.parse(localStorage.getItem("guru")) || [];
+let supervisi = JSON.parse(localStorage.getItem("supervisi")) || [];
+
+// KRITERIA PENILAIAN
+const kriteria = [
+    "Guru menyiapkan perangkat pembelajaran",
+    "Guru menyampaikan tujuan pembelajaran",
+    "Guru menguasai materi pembelajaran",
+    "Guru menggunakan metode pembelajaran yang sesuai",
+    "Guru menggunakan media pembelajaran",
+    "Guru mengelola kelas dengan baik",
+    "Guru melibatkan siswa secara aktif",
+    "Guru menggunakan bahasa yang komunikatif",
+    "Guru melaksanakan penilaian pembelajaran",
+    "Guru melakukan refleksi pembelajaran"
+];
+
+// NAVIGASI HALAMAN
+function showPage(id, btn) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".sidebar button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    renderAll();
+}
+
+// SIMPAN GURU
+document.getElementById("guruForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    guru.push({
+        id: Date.now(),
+        nama: namaGuru.value,
+        nip: nipGuru.value,
+        mapel: mapelGuru.value,
+        kelas: kelasGuru.value
+    });
+
+    simpan();
+    this.reset();
+    alert("Data guru berhasil disimpan!");
+});
+
+// HAPUS GURU
+function hapusGuru(id) {
+    if (!confirm("Hapus data guru ini?")) return;
+
+    if (supervisi.some(s => s.guruId === id)) {
+        alert("Guru sudah memiliki riwayat supervisi. Hapus riwayat supervisinya terlebih dahulu.");
+        return;
+    }
+
+    guru = guru.filter(g => g.id !== id);
+    simpan();
+}
+
+// TAMPILKAN DATA GURU
+function renderGuru() {
+    guruTable.innerHTML = "";
+
+    guru.forEach((g, i) => {
+        guruTable.innerHTML += `
+        <tr>
+            <td>${i+1}</td>
+            <td>${escapeHTML(g.nama)}</td>
+            <td>${escapeHTML(g.nip || "-")}</td>
+            <td>${escapeHTML(g.mapel)}</td>
+            <td>${escapeHTML(g.kelas || "-")}</td>
+            <td>
+                <button class="btn danger" onclick="hapusGuru(${g.id})">Hapus</button>
+            </td>
+        </tr>`;
+    });
+
+    if (guru.length === 0) {
+        guruTable.innerHTML = `<tr><td colspan="6">Belum ada data guru.</td></tr>`;
+    }
+
+    pilihGuru.innerHTML = '<option value="">-- Pilih Guru --</option>';
+
+    guru.forEach(g => {
+        pilihGuru.innerHTML += `<option value="${g.id}">${escapeHTML(g.nama)}</option>`;
+    });
+}
+
+// TAMPILKAN KRITERIA
+function renderKriteria() {
+    kriteriaList.innerHTML = "";
+
+    kriteria.forEach((k, i) => {
+        kriteriaList.innerHTML += `
+        <div class="criteria">
+            <p><b>${i+1}.</b> ${k}</p>
+            <select class="skor" required>
+                <option value="">-- Pilih Skor --</option>
+                <option value="1">1 - Kurang</option>
+                <option value="2">2 - Cukup</option>
+                <option value="3">3 - Baik</option>
+                <option value="4">4 - Sangat Baik</option>
+            </select>
+        </div>`;
+    });
+
+    document.querySelectorAll(".skor").forEach(s => {
+        s.addEventListener("change", hitungNilai);
+    });
+}
+
+// HITUNG NILAI
+function hitungNilai() {
+    const skor = [...document.querySelectorAll(".skor")];
+    const nilai = skor.reduce((total, s) => total + Number(s.value || 0), 0);
+    const terisi = skor.filter(s => s.value !== "").length;
+
+    if (terisi !== kriteria.length) {
+        nilaiAkhir.textContent = "0";
+        predikat.textContent = `Penilaian terisi ${terisi}/${kriteria.length}`;
+        return;
+    }
+
+    const hasil = (nilai / (kriteria.length * 4)) * 100;
+
+    nilaiAkhir.textContent = hasil.toFixed(2);
+    predikat.textContent = getPredikat(hasil);
+}
+
+// PREDIKAT
+function getPredikat(nilai) {
+    if (nilai >= 90) return "Sangat Baik";
+    if (nilai >= 80) return "Baik";
+    if (nilai >= 70) return "Cukup";
+    return "Perlu Pembinaan";
+}
+
+// SIMPAN SUPERVISI
+document.getElementById("supervisiForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const skor = [...document.querySelectorAll(".skor")].map(s => Number(s.value));
+
+    if (skor.some(s => !s)) {
+        alert("Harap isi semua indikator penilaian!");
+        return;
+    }
+
+    const guruId = Number(pilihGuru.value);
+    const dataGuru = guru.find(g => g.id === guruId);
+
+    if (!dataGuru) {
+        alert("Silakan pilih guru terlebih dahulu!");
+        return;
+    }
+
+    const total = skor.reduce((a,b) => a+b, 0);
+    const nilai = (total / (kriteria.length * 4)) * 100;
+
+    supervisi.push({
+        id: Date.now(),
+        guruId: guruId,
+        nama: dataGuru.nama,
+        supervisor: namaSupervisor.value,
+        tanggal: tanggalSupervisi.value,
+        skor: skor,
+        nilai: nilai.toFixed(2),
+        predikat: getPredikat(nilai),
+        catatan: catatan.value
+    });
+
+    simpan();
+    this.reset();
+    renderKriteria();
+
+    nilaiAkhir.textContent = "0";
+    predikat.textContent = "Belum dinilai";
+
+    alert("Hasil supervisi berhasil disimpan!");
+    showPage("riwayat", document.querySelectorAll(".sidebar button")[3]);
+});
+
+// HAPUS SUPERVISI
+function hapusSupervisi(id) {
+    if (!confirm("Hapus hasil supervisi ini?")) return;
+
+    supervisi = supervisi.filter(s => s.id !== id);
+    simpan();
+}
+
+// DETAIL SUPERVISI
+function detailSupervisi(id) {
+    const s = supervisi.find(x => x.id === id);
+    if (!s) return;
+
+    let html = `
+        <p><b>Nama Guru:</b> ${escapeHTML(s.nama)}</p>
+        <p><b>Supervisor:</b> ${escapeHTML(s.supervisor)}</p>
+        <p><b>Tanggal:</b> ${escapeHTML(s.tanggal)}</p>
+        <p><b>Nilai:</b> ${s.nilai}</p>
+        <p><b>Predikat:</b> ${escapeHTML(s.predikat)}</p>
+        <hr style="margin:15px 0">
+        <h4>Rincian Penilaian</h4>
+    `;
+
+    kriteria.forEach((k,i) => {
+        html += `<p style="margin-top:12px;font-size:13px">${i+1}. ${k}: <b>${s.skor[i]}</b></p>`;
+    });
+
+    html += `
+        <hr style="margin:15px 0">
+        <p><b>Catatan:</b> ${escapeHTML(s.catatan || "-")}</p>
+    `;
+
+    detailHasil.innerHTML = html;
+    detailPanel.style.display = "block";
+    detailPanel.scrollIntoView({behavior:"smooth"});
+}
+
+// RENDER RIWAYAT
+function renderRiwayat() {
+    riwayatTable.innerHTML = "";
+
+    [...supervisi].reverse().forEach((s,i) => {
+        riwayatTable.innerHTML += `
+        <tr>
+            <td>${i+1}</td>
+            <td>${escapeHTML(s.nama)}</td>
+            <td>${escapeHTML(s.supervisor)}</td>
+            <td>${escapeHTML(s.tanggal)}</td>
+            <td>${s.nilai}</td>
+            <td><span class="badge">${escapeHTML(s.predikat)}</span></td>
+            <td>
+                <button class="btn secondary" onclick="detailSupervisi(${s.id})">Detail</button>
+                <button class="btn danger no-print" onclick="hapusSupervisi(${s.id})">Hapus</button>
+            </td>
+        </tr>`;
+    });
+
+    if (supervisi.length === 0) {
+        riwayatTable.innerHTML = `<tr><td colspan="7">Belum ada hasil supervisi.</td></tr>`;
+    }
+}
+
+// DASHBOARD
+function renderDashboard() {
+    totalGuru.textContent = guru.length;
+    totalSupervisi.textContent = supervisi.length;
+
+    const rata = supervisi.length
+        ? supervisi.reduce((a,s) => a + Number(s.nilai), 0) / supervisi.length
+        : 0;
+
+    rataRata.textContent = rata.toFixed(1);
+
+    sangatBaik.textContent = supervisi.filter(
+        s => s.predikat === "Sangat Baik"
+    ).length;
+
+    dashboardTable.innerHTML = "";
+
+    [...supervisi].reverse().slice(0,5).forEach(s => {
+        dashboardTable.innerHTML += `
+        <tr>
+            <td>${escapeHTML(s.nama)}</td>
+            <td>${escapeHTML(s.tanggal)}</td>
+            <td>${s.nilai}</td>
+            <td>${escapeHTML(s.predikat)}</td>
+        </tr>`;
+    });
+
+    if (supervisi.length === 0) {
+        dashboardTable.innerHTML = `<tr><td colspan="4">Belum ada supervisi.</td></tr>`;
+    }
+}
+
+// KEAMANAN TAMPILAN TEKS
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+// SIMPAN LOCAL STORAGE
+function simpan() {
+    localStorage.setItem("guru", JSON.stringify(guru));
+    localStorage.setItem("supervisi", JSON.stringify(supervisi));
+    renderAll();
+}
+
+// RENDER SEMUA
+function renderAll() {
+    renderGuru();
+    renderRiwayat();
+    renderDashboard();
+}
+
+// JALANKAN APLIKASI
+renderKriteria();
+renderAll();
+
+</script>
+
+</body>
+</html>
